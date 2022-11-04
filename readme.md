@@ -77,3 +77,8 @@ Ao completar o cadastro será fornecido um ID do cliente.
 Iniciar a função `WebBrowser.maybeCompleAuthSession()`
 
 Em *AuthContextProvider* usar a função `Google.useAuthRequest()` e dentro dela passar o *clientId* que é a credencial do google, em *redirectUri* a função `makeRedirectUri({useProxy:true})` e como *scopes* o que foi previamente definido, o `profile` e o `email`
+
+
+## Phosphor React Native Icons
+
+- [ ] `yarn add phosphor-react-native` / `npm install --save phosphor-react-native`
