@@ -7,7 +7,7 @@ import {
 } from '@expo-google-fonts/roboto'
 
 import { THEME } from './src/styles/theme/theme'
-import { Loading } from './src/components/loading/Loading'
+import { Loading } from './src/components/ui/Loading'
 import { SignIn } from './src/screens/SignIn/SignIn'
 import { AuthContextProvider } from './src/contexts/AuthContext'
 
