@@ -82,3 +82,11 @@ Em *AuthContextProvider* usar a função `Google.useAuthRequest()` e dentro dela
 ## Phosphor React Native Icons
 
 - [ ] `yarn add phosphor-react-native` / `npm install --save phosphor-react-native`
+
+## React Navigation (reactnavigation.org)
+
+- [ ] `yarn add @react-navigation/native` => core de navegação
+- [ ] `npx expo install react-native-screens react-native-safe-area-context` => dependências de projeto usando o expo
+- [ ] `yarn add @react-navigation/bottom-tabs`
+
+Cria um arquivo condensando as rotas do aplicativo, app.routes.tsx, e em index.tsx é passado a função AppRoutes
