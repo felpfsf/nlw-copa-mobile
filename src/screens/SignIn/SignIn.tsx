@@ -7,7 +7,7 @@ import Logo from '../../assets/logo.svg'
 import { Button } from '../../components/ui/Button'
 
 export function SignIn() {
-  const { signIn, user } = useAuth()
+  const { signIn, user, isUserLoading } = useAuth()
   // console.log(`User => ${user.name}, ${user.avatarUrl}`)
   return (
     <Center flex={1} bgColor='gray.900' p={7}>
@@ -20,6 +20,8 @@ export function SignIn() {
           <Icon as={Fontisto} name='google' color={'white'} size={'md'} />
         }
         onPress={signIn}
+        isLoading={isUserLoading}
+        _loading={{ _spinner: { color: 'white' } }}
       />
       <Text color='gray.200' fontSize='sm' textAlign='center' mt={4}>
         Não utilizamos nenhuma informação além {'\n'} do seu e-mail para criação
