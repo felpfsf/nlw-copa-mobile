@@ -90,3 +90,5 @@ Em *AuthContextProvider* usar a função `Google.useAuthRequest()` e dentro dela
 - [ ] `yarn add @react-navigation/bottom-tabs`
 
 Cria um arquivo condensando as rotas do aplicativo, app.routes.tsx, e em index.tsx é passado a função AppRoutes
+
+Para manter a rota de Encontrar um Bolão(Find) precisa adicionar uma nova screen porém para não acrescentar um novo botão/elemento tem que colocar a options tabBarButton com retorno null, assim não exibe o botão mas mantém a rota.
