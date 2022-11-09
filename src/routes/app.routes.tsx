@@ -40,7 +40,7 @@ export function AppRoutes() {
         }}
       />
       <Screen
-        name='polls'
+        name='pools'
         component={Pools}
         options={{
           tabBarIcon: ({ color }) => <SoccerBall color={color} size={size} />,
