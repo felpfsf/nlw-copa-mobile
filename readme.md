@@ -91,4 +91,18 @@ Em *AuthContextProvider* usar a função `Google.useAuthRequest()` e dentro dela
 
 Cria um arquivo condensando as rotas do aplicativo, app.routes.tsx, e em index.tsx é passado a função AppRoutes
 
-Para manter a rota de Encontrar um Bolão(Find) precisa adicionar uma nova screen porém para não acrescentar um novo botão/elemento tem que colocar a options tabBarButton com retorno null, assim não exibe o botão mas mantém a rota.
+Para manter a rota de Encontrar um Bolão(Find) precisa adicionar uma nova screen porém para não acrescentar um  novo botão/elemento tem que colocar a options tabBarButton com retorno null, assim não exibe o botão mas mantém a rota.
+
+## Autenticando com o google
+
+Em AuthContxt na função **`signInWithGoogle`** utiliza um bloco **`try-catch`**, em primeiro é passado o estado de *loading* para true como um feedback para o usuário, enquanto isso através do método *`post`* usando a rota **`/users`** é requisitado o token de resposta, esse token servirá para identificar o usuário está autenticado na aplicação.
+
+Através do método defaults o token de acesso é concedido e e aplicado ao cabeçalho da requisição mantendo o usuário autenticado.
+
+```js
+api.defaults.headers.common['Authorization'] = `Bearer ${tokenRespose.data}`
+```
+
+Com suscesso é feito a recuperação dos dados do usuário, no caso apenas o nome e o avatar, através da rota **`/me`** e armazenados no estado **`user`**
+
+Após o login é preciso redirecionar o usuário para as rotas do app então no index de routes é feita uma condição utilizando o **`user`** do hook **`useAuth`**, caso tenha um nome de usuário então significa que o usuário está logado no app e redireciona para o menu
