@@ -54,13 +54,13 @@ A função `signIn` é responsável por realizar o método de autenticação
 
 *Credenciais* --> *Criar ID do cliente OAuth* --> *Aplicativo da Web* --> *URIs Autorizadas* `https://auth.expo.io` --> URIs de redirecionamento `https://auth.expo.io/@<username>/<projeto>`
 
-### Para conseguir acessar a URI de redirecionamento corretamente:
+### Para conseguir acessar a URI de redirecionamento corretamente
 
 - [ ] Importar *AuthSession* de `expo-auth-session`
 - [ ] Dentro de *AuthContextProvider* usar o `console.log` para `makeRedirectUri({useProxy:true})`
 - [ ] Ao executar a aplicação será exibido no conole o URI de redirecionamento correto
 
-### Caso não seja possível visualizar:
+### Caso não seja possível visualizar
 
 - [ ] `npx expo login` --> efetuar o login utilizando seu email/username e senha da `expo.dev`
 - [ ] npx expo whoami --> verificar se está logado na conta expo exibindo seu nome de usuário
@@ -77,7 +77,6 @@ Ao completar o cadastro será fornecido um ID do cliente.
 Iniciar a função `WebBrowser.maybeCompleAuthSession()`
 
 Em *AuthContextProvider* usar a função `Google.useAuthRequest()` e dentro dela passar o *clientId* que é a credencial do google, em *redirectUri* a função `makeRedirectUri({useProxy:true})` e como *scopes* o que foi previamente definido, o `profile` e o `email`
-
 
 ## Phosphor React Native Icons
 
@@ -109,14 +108,18 @@ Após o login é preciso redirecionar o usuário para as rotas do app então no 
 
 ## Criando um bolão
 
-Criar uma função assincrona com método post para lidar com a criação de palpites, essa função primeiramente verifica se o input está vazio através do estado criado para os valor do input. O toast é uma lib do native-base que serve para exibir uma mensagem de alerta mais customizada ao usuário.
+Criar uma função assincrona com método **`post`** para lidar com a criação de palpites, essa função primeiramente verifica se o input está vazio através do estado criado para o valor do input. O **`toast`** é uma lib do **`native-base`** que serve para exibir uma mensagem de alerta mais customizada ao usuário.
 
-Em um bloco try-catch é postado o título do bolão, caso ocorra algum erro é exibido uma mensagem para o usuário. Para um feedback visual adicona um estado de loading ao botão e um ícone enquanto a operação é efetuada.
+Em um bloco **`try-catch`** é postado o título do bolão, caso ocorra algum erro é exibido uma mensagem para o usuário. Para um feedback visual adicona um estado de loading ao botão e um ícone enquanto a operação é efetuada.
 
 ## Listando os bolões
 
-Para listar os bolões do usuário é realizada uma requisição get no endpoint /pools, a resposta é armazenada em um estado que então é passado para o componente PoolCard.
+Para listar os bolões do usuário é realizada uma requisição **`get`** no endpoint **`/pools`**, a resposta é armazenada em um estado que então é passado para o componente **`PoolCard`**.
 
-O componente de Flatilist é utilizado para fazer um map da requisição e renderizar, no método renderItem é passado o componente PoolCard e em ListEmptyComponent é passado o componente EmpytPoolList que contém uma mensagem informando que o usuário não possui nenhum bolão.
+O componente de **`FlatList`** é utilizado para fazer um *map* da requisição e renderizar os itens, no método **`renderItem`** é passado o componente **`PoolCard`** e em **`ListEmptyComponent`** é passado o componente **`EmpytPoolList`** que contém uma mensagem informando que o usuário não possui nenhum bolão.
 
-Para dar feedback ao usuário é feita uma condição para exibir um ícone de loading enquanto o app faz a requisição.
+Para dar feedback ao usuário é feita uma condição para exibir um ícone de *loading* enquanto o app faz a requisição.
+
+## Entrando em um bolão por código
+
+É feita uma consulta do código oferecido pelo usuário, em caso de sucesso é exibida uma mensagem toast de sucesso e redireciona o usuário para tela de bolões cadastrados. Em caso de erro é feita uma comparação com a mensagem do status de erro vindo do servidor e então é exibida a mensagem para o usuário, uma terceira mensagem de erro é criada para tratar qualquer outro tipo de erro.
