@@ -1,17 +1,52 @@
-import { VStack, Icon, Text } from 'native-base'
+import { useCallback, useState } from 'react'
+import { useFocusEffect, useNavigation } from '@react-navigation/native'
+import { VStack, Icon, Text, useToast, FlatList } from 'native-base'
+
+import { api } from '../../services/api'
 
 import { Octicons } from '@expo/vector-icons'
 
 import { Button } from '../../components/ui/Button'
 import { Header } from '../../components/ui/Header'
-import { useNavigation } from '@react-navigation/native'
+import { Loading } from '../../components/ui/Loading'
+import { PoolCard, PoolCardPros } from '../../components/ui/PoolCard'
+import { EmptyPoolList } from '../../components/ui/EmptyPoolList'
 
 export function Pools() {
-  const {navigate} = useNavigation()
+  const { navigate } = useNavigation()
+  const toast = useToast()
+  const [isLoading, setIsLoading] = useState(true)
+  const [pools, setPools] = useState<PoolCardPros[]>([])
 
   function handleNavigation() {
     navigate('find')
   }
+
+  async function fetchPools() {
+    try {
+      setIsLoading(true)
+
+      const response = await api.get('/pools')
+      setPools(response.data.pools)
+    } catch (error) {
+      console.log(error)
+
+      toast.show({
+        title: 'Erro ao tentar encontrar os bolões',
+        placement: 'top',
+        bgColor: 'red.500'
+      })
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  useFocusEffect(
+    useCallback(() => {
+      fetchPools()
+    }, [])
+  )
+
   return (
     <VStack flex={1} bg='gray.900'>
       <Header title='Meus bolões' />
@@ -24,10 +59,19 @@ export function Pools() {
           onPress={handleNavigation}
         />
       </VStack>
-      <Text color='gray.200' fontSize='sm' textAlign='center' mt={4} px={12}>
-        Você ainda não está participando de nenhum bolão, que tal buscar um por
-        código ou criar um novo?
-      </Text>
+      {isLoading ? (
+        <Loading />
+      ) : (
+        <FlatList
+          data={pools}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => <PoolCard data={item} />}
+          ListEmptyComponent={() => <EmptyPoolList />}
+          showsVerticalScrollIndicator={false}
+          _contentContainerStyle={{ pb: 10 }}
+          px={5}
+        />
+      )}
     </VStack>
   )
 }
