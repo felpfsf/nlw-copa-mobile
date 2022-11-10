@@ -112,3 +112,11 @@ Após o login é preciso redirecionar o usuário para as rotas do app então no 
 Criar uma função assincrona com método post para lidar com a criação de palpites, essa função primeiramente verifica se o input está vazio através do estado criado para os valor do input. O toast é uma lib do native-base que serve para exibir uma mensagem de alerta mais customizada ao usuário.
 
 Em um bloco try-catch é postado o título do bolão, caso ocorra algum erro é exibido uma mensagem para o usuário. Para um feedback visual adicona um estado de loading ao botão e um ícone enquanto a operação é efetuada.
+
+## Listando os bolões
+
+Para listar os bolões do usuário é realizada uma requisição get no endpoint /pools, a resposta é armazenada em um estado que então é passado para o componente PoolCard.
+
+O componente de Flatilist é utilizado para fazer um map da requisição e renderizar, no método renderItem é passado o componente PoolCard e em ListEmptyComponent é passado o componente EmpytPoolList que contém uma mensagem informando que o usuário não possui nenhum bolão.
+
+Para dar feedback ao usuário é feita uma condição para exibir um ícone de loading enquanto o app faz a requisição.
