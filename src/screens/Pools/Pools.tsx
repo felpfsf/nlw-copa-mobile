@@ -9,14 +9,14 @@ import { Octicons } from '@expo/vector-icons'
 import { Button } from '../../components/ui/Button'
 import { Header } from '../../components/ui/Header'
 import { Loading } from '../../components/ui/Loading'
-import { PoolCard, PoolCardPros } from '../../components/ui/PoolCard'
+import { PoolCard, PoolCardProps } from '../../components/ui/PoolCard'
 import { EmptyPoolList } from '../../components/ui/EmptyPoolList'
 
 export function Pools() {
   const { navigate } = useNavigation()
   const toast = useToast()
   const [isLoading, setIsLoading] = useState(true)
-  const [pools, setPools] = useState<PoolCardPros[]>([])
+  const [pools, setPools] = useState<PoolCardProps[]>([])
 
   function handleNavigation() {
     navigate('find')
@@ -65,7 +65,12 @@ export function Pools() {
         <FlatList
           data={pools}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => <PoolCard data={item} />}
+          renderItem={({ item }) => (
+            <PoolCard
+              data={item}
+              onPress={() => navigate('details', { id: item.id })}
+            />
+          )}
           ListEmptyComponent={() => <EmptyPoolList />}
           showsVerticalScrollIndicator={false}
           _contentContainerStyle={{ pb: 10 }}
