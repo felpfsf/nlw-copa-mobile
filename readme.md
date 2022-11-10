@@ -123,3 +123,11 @@ Para dar feedback ao usuário é feita uma condição para exibir um ícone de *
 ## Entrando em um bolão por código
 
 É feita uma consulta do código oferecido pelo usuário, em caso de sucesso é exibida uma mensagem toast de sucesso e redireciona o usuário para tela de bolões cadastrados. Em caso de erro é feita uma comparação com a mensagem do status de erro vindo do servidor e então é exibida a mensagem para o usuário, uma terceira mensagem de erro é criada para tratar qualquer outro tipo de erro.
+
+## Exibindo detalhes do bolão
+
+Ao clicar no card do bolão é passado seu **`id`** como parâmetro, com ele é possível fazer a requisição de detalhes através da rota **`/pools/id`**, no *`useEffect`* é utilizado o parâmetro **`id`** como referência para atualizar a página e fazer uma nova requisição. O componente **`PoolHeader`** recebe os dados da requisição para exibir o *`nome`*, *`codigo do bolão`*, os *`avatares`* e a *`quantidade total de usuários`*.
+
+Uma condição é criada para o caso de não existir ninguém no bolão, dando lugar a uma mensagem para o usuário compartilhar o link.
+
+O compartilhamento do link é feito através da lib **`Share`** nativa do próprio **`react-native`**, através dela tem o método **`share`** no qual possui um objeto que no caso será uma message contendo o codigo do bolão.
