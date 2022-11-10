@@ -106,3 +106,9 @@ api.defaults.headers.common['Authorization'] = `Bearer ${tokenRespose.data}`
 Com suscesso é feito a recuperação dos dados do usuário, no caso apenas o nome e o avatar, através da rota **`/me`** e armazenados no estado **`user`**
 
 Após o login é preciso redirecionar o usuário para as rotas do app então no index de routes é feita uma condição utilizando o **`user`** do hook **`useAuth`**, caso tenha um nome de usuário então significa que o usuário está logado no app e redireciona para o menu
+
+## Criando um bolão
+
+Criar uma função assincrona com método post para lidar com a criação de palpites, essa função primeiramente verifica se o input está vazio através do estado criado para os valor do input. O toast é uma lib do native-base que serve para exibir uma mensagem de alerta mais customizada ao usuário.
+
+Em um bloco try-catch é postado o título do bolão, caso ocorra algum erro é exibido uma mensagem para o usuário. Para um feedback visual adicona um estado de loading ao botão e um ícone enquanto a operação é efetuada.
