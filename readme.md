@@ -141,3 +141,7 @@ O componente **`Game`** tem como parametros o placar do jogo e caso o usuário n
 Para efetuar o registro do palpite é criada uma função assíncrona com o **`gameId`** como parâmetro para ser usado na rota da API *`/pools/${poolId}/games/${gameId}/guesses`*. No método *post* é passado a rota da API com o *`poolId`* e o *`gameId`* seguido pelo placar do palpite. Em caso de sucesso uma mensagem exibida e a função fetchGames é chamada novamente, atualizando a lista de jogos do bolão.
 
 A lib Day.js é utilizada para tratar o formato de data que está registrado no backend.
+
+## Preparando as Variáveis de Ambiente
+
+Para poder usar as variáveis de ambiente no React Native é preciso instalar os pacotes **`dotenv`** e **`babel-plugin-inline-dotenv`**, adicionar o plugin **`inline-dotenv`** no arquivo **`babel.config.js`**. Depois criar o arquivo *.env* na raíz, e armazenar o googleId em uma variável, **`CLIENT_ID`** por exemplo. Em *.gitignore* adicione o arquivo *.env* para ele não ser incluído na listagem do git. No arquivo *AuthContext* use a expressão **`process.env.CLIENT_ID`** para chamar a variável.
