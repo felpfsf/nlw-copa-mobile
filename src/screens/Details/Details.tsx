@@ -70,7 +70,7 @@ export function Details() {
       {details._count?.participants > 0 ? (
         <VStack px={5} flex={1}>
           <PoolHeader data={details} />
-          
+
           <HStack bgColor='gray.800' p={1} rounded='sm' mb={5}>
             <Option
               title='Seus palpites'
@@ -85,7 +85,7 @@ export function Details() {
             />
           </HStack>
 
-          <Guesses poolId={details.id} />
+          <Guesses poolId={details.id} code={details.code} />
         </VStack>
       ) : (
         <EmptyMyPoolList code={details.code} />
