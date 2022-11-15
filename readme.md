@@ -131,3 +131,9 @@ Ao clicar no card do bolão é passado seu **`id`** como parâmetro, com ele é 
 Uma condição é criada para o caso de não existir ninguém no bolão, dando lugar a uma mensagem para o usuário compartilhar o link.
 
 O compartilhamento do link é feito através da lib **`Share`** nativa do próprio **`react-native`**, através dela tem o método **`share`** no qual possui um objeto que no caso será uma message contendo o codigo do bolão.
+
+A listagem de jogos do bolão é feita através do componente **`Guesses`**, este recebe o *`poolId`* como parâmetro que é usado para acessar a rota da API contendo os jogos relacionado ao bolão selecionado. Cada jogo é renderizado no componente **`Game`** através de uma *`FlatList`*.
+
+O componente **`Game`** tem como parametros o placar do jogo e caso o usuário não tenha feito um palpite ainda um botão de confirmar palpite é exibido.
+
+## Registrando o palpite
