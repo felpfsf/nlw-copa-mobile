@@ -4,6 +4,8 @@ import { FlatList, useToast } from 'native-base'
 import { api } from '../../services/api'
 
 import { Game, GameProps } from '../ui/Game'
+import { Loading } from './Loading'
+import { IError } from '../../@types/error'
 
 interface Props {
   poolId: string
@@ -11,10 +13,11 @@ interface Props {
 
 export function Guesses({ poolId }: Props) {
   const toast = useToast()
+
+  const [isLoading, setIsLoading] = useState(true)
   const [games, setGames] = useState<GameProps[]>([])
   const [firstTeamPoints, setFirstTeamPoints] = useState('')
   const [secondTeamPoints, setSecondTeamPoints] = useState('')
-  const [isLoading, setIsLoading] = useState(true)
 
   async function fetchGames() {
     try {
@@ -37,14 +40,14 @@ export function Guesses({ poolId }: Props) {
   async function handleGuessConfirm(gameId: string) {
     try {
       if (!firstTeamPoints.trim() || !secondTeamPoints.trim()) {
-        toast.show({
+        return toast.show({
           title: 'Informe o placar corretamente',
           placement: 'top',
           bgColor: 'red.500'
         })
       }
 
-      await api.post(`/pools/${poolId}}/games/${gameId}/guesses`, {
+      await api.post(`/pools/${poolId}/games/${gameId}/guesses`, {
         firstTeamPoints: Number(firstTeamPoints),
         secondTeamPoints: Number(secondTeamPoints)
       })
@@ -54,9 +57,11 @@ export function Guesses({ poolId }: Props) {
         placement: 'top',
         bgColor: 'greend.500'
       })
-      
-    } catch (error) {
-      console.log(error)
+
+      fetchGames()
+    } catch (error: unknown) {
+      const err = error as IError
+      console.log(err.response?.data?.message)
       toast.show({
         title: 'Não foi possível enviar o palpite',
         placement: 'top',
@@ -69,6 +74,10 @@ export function Guesses({ poolId }: Props) {
     fetchGames()
   }, [poolId])
 
+  if (isLoading) {
+    return <Loading />
+  }
+
   return (
     <FlatList
       data={games}
@@ -78,9 +87,11 @@ export function Guesses({ poolId }: Props) {
           data={item}
           setFirstTeamPoints={setFirstTeamPoints}
           setSecondTeamPoints={setSecondTeamPoints}
-          onGuessConfirm={() => {}}
+          onGuessConfirm={() => handleGuessConfirm(item.id)}
         />
       )}
+      _contentContainerStyle={{ pb: 10 }}
+      
     />
   )
 }
