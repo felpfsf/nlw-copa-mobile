@@ -137,3 +137,7 @@ A listagem de jogos do bolão é feita através do componente **`Guesses`**, est
 O componente **`Game`** tem como parametros o placar do jogo e caso o usuário não tenha feito um palpite ainda um botão de confirmar palpite é exibido.
 
 ## Registrando o palpite
+
+Para efetuar o registro do palpite é criada uma função assíncrona com o **`gameId`** como parâmetro para ser usado na rota da API *`/pools/${poolId}/games/${gameId}/guesses`*. No método *post* é passado a rota da API com o *`poolId`* e o *`gameId`* seguido pelo placar do palpite. Em caso de sucesso uma mensagem exibida e a função fetchGames é chamada novamente, atualizando a lista de jogos do bolão.
+
+A lib Day.js é utilizada para tratar o formato de data que está registrado no backend.
